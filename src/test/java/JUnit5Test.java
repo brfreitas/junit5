@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-public class JUnit5Test {
+class JUnit5Test {
 
     @BeforeAll
     static void inicializarRecursosExternos() {
