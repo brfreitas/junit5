@@ -1,6 +1,6 @@
-# junit5
+# JUnit 5
 
-##Annotations
+## Annotations
 
 |annotation            |description                                    |JUnit4 equivalent  |
 |----------------------|-----------------------------------------------|-------------------|
