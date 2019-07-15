@@ -82,3 +82,46 @@ void assertExceptions() {
 Assumptions allow you to run tests if a given condition is expected.
 As an assumption, it needs to be formulated as a Boolean expression, if the condition is not met the test terminates.
 This can be used to reduce runtime and verbosity of test tools, especially in cases of failure.
+
+```java
+@Test
+void exitIfFalseIsTrue() {
+    assumeTrue(false);
+    System.exit(1);
+}
+
+@Test
+void exitIfTrueIsFalse() {
+    assumeFalse(this::truism);
+    System.exit(1);
+}
+
+private boolean truism() {
+    return true;
+}
+
+@Test
+void exitIfNullEqualsString() {
+    assumingThat(
+             // state an assumption (a false one in this case) ...
+   		 "null".equals(null),
+             // … and only execute the lambda if it is true
+   		 () -> System.exit(1)
+    );
+}
+```
+
+##Architecture
+The monolithic JUnit 4 architecture did make the development hard. To improve this the Junit 5 does:
+
+### Separating concepts
+A tests framework have two important tasks:
+
+* allow developers writes tests;
+
+* allow tools runs tests.
+
+### JUnit as platform
+JUnit is the most popular test framework. This success occurs because the strong integration with IDEs and tools.
+At same time, others frameworks have exploring new interesting approaches to tests, however the lack of integration does the
+developers back to JUnit. Maybe this tests frameworks can self benefit of JUnit success and use the integration offered. 
