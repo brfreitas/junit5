@@ -125,3 +125,43 @@ A tests framework have two important tasks:
 JUnit is the most popular test framework. This success occurs because the strong integration with IDEs and tools.
 At same time, others frameworks have exploring new interesting approaches to tests, however the lack of integration does the
 developers back to JUnit. Maybe this tests frameworks can self benefit of JUnit success and use the integration offered. 
+
+##Modularization
+The modularization bring an decoupled architecture:
+
+* An API to developers writes your tests;
+* An engine to each API discover, shows and run the correspondent test;
+* An API to be implemented by all engines to be used evenly;
+* A mechanism that orchestrates the engines.
+
+This separates "a tool JUnit" (1 and 2) from "platform JUnit" (3 and 4). To evidence this distinction
+a project use following scheme:
+
+* An new API called **JUnit Jupter**. (for developers)
+* An platform called **JUnit Platform**. (for tools)
+* An sub project called **JUnit vintage**.(for adapt JUnit 3 and 4 to be executed on JUnit 5)
+
+The JUnit 5 is the sum of this three parts:
+
+* **junit-jupiter-api** (1) - Contains the annotations, asserts, etc.
+
+* **junit-jupiter-engine** (2) - To run the tests with JUnit 5.
+
+* **junit-platform-engine** (3) - The API which all tests engines should implements.
+
+* **junit-platform-launcher** (4) - Uses the ServiceLoader to discover the implementations of the test engines and to organize their execution. 
+Provides an API for IDEs and building tools to interact with the execution of the test, for example running individual tests and presenting the results.
+
+The benefits of this architecture are apparent; now we only need two more 
+components to run the tests written with JUnit 4 tests:
+
+* **junit-4.12** (1) - The JUnit 4 artifact functions as the API 
+that the developer implements its tests, but also contains the main functionality of running the tests.
+    
+* **junit-vintage-motor** (2) - An implementation of the junit-platform-engine that runs the tests 
+written with JUnit 4. It can be seen as a JUnit 4 adapter for version 5.
+Other frameworks already provide the API for writing the tests, 
+so what is missing for full integration with JUnit 5 is an implementation of the test engines.
+
+![Alt](src/main/resources/assets/junit-5-architecture.png "JUnit 5 architecture")
+
