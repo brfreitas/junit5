@@ -165,3 +165,7 @@ so what is missing for full integration with JUnit 5 is an implementation of the
 
 ![Alt](src/main/resources/assets/junit-5-architecture.png "JUnit 5 architecture")
 
+##Reference
+
+https://www.infoq.com/br/articles/JUnit-5-Early-Test-Drive/
+https://junit.org/junit5/docs/current/user-guide/
